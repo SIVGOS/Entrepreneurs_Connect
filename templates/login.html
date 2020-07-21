@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/styles_register.css' %}">
+</head>
+<body bgcolor = "lightgreen">
+{% block content %}
+ <form action="login" method='post' style="border:1px solid #ccc">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Log In</h1>
+    <p>Please enter your credentials to login.</p>
+    {% for message in messages %}
+	<h3> <span class="redText"> {{message}} </span></h3>
+    {% endfor %}
+    <p> New User? <a href="/accounts/register"> Register </a> <p>
+    <hr>
+    {% if message != 'no_msg' %}
+	<h3> <span class="redText"> {{message}} </span></h3>
+    {% endif %}
+    <label for="username"><b>UserName</b></label>
+    <input type="text" placeholder="Enter User Name or Email Id" name="username" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+    <div class="clearfix">
+      <button type="button" onclick="location.href='{% url 'home' %}'" class="cancelbtn"> Cancel</button>
+      <button type="submit" class="signupbtn">Sign In</button>
+    </div>
+  </div>
+</form> 
+ {% endblock %}
+</html>

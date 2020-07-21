@@ -1,0 +1,131 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/styles_register.css' %}">
+</head>
+<body bgcolor = "lightgreen">
+{% block content %}
+ <form action="edit_profile" method='post' style="border:1px solid #ccc" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Welcome {{user.first_name}} {{user.last_name}}</h1>
+    <p>Please fill in this form to create your profile.</p>
+    <hr>
+    {% if ent_exist %}
+    <label for="intro"><b>Enter a brief into about yourself</b></label>
+    <input type="text" value="{{user.entrepreneur.intro}}" autocomplete="off" name="intro" required>
+
+    <label for="industry"><b>Which industry best describes your work? </b></label>
+    <input type="text" value="{{user.entrepreneur.industry}}" autocomplete="off" name="industry" required>
+
+    <label for="city"><b>Enter the name of your town or city: </b></label>
+    <input type="text" value="{{user.entrepreneur.city}}" autocomplete="off" name="city" required>
+
+    <label for="state"><b>Enter the name of your state: </b></label>
+    <input type="text" value="{{user.entrepreneur.state}}" autocomplete="off" name="state" required>
+
+    <label for="country"><b>Enter the name of your country: </b></label>
+    <input type="text" value="{{user.entrepreneur.country}}" autocomplete="off" name="country" required>
+    
+     <label for="about"><b>Write your detailed bio</b></label>
+     <textarea rows = "20" cols = "100" name = "about"> {{user.entrepreneur.about}} </textarea> <br><br><br>
+
+     <label for="id_photo"> <b> Upload a New Profile Photo </b> </label> <br>
+     {% if user.entrepreneur.photo.url is not None %}
+     <img src="{{user.entrepreneur.photo.url}}" width="300" height="300" alt=""> <br><br>
+     {% endif %}
+     <input type="file" name="photo" id="id_photo" accept="image/*"> <br><br><br>
+
+     <label for="external_urls"> <b> Enter any links to your website or social media profiles:</b> </label> <br>
+     <p>Linkedin Profile: </p>
+     <input type="url" value = {{user.entrepreneur.linkedin_url}} name = "linkedin_url"> <br>
+     <p>Facebook Profile: </p>
+     <input type="url" value = {{user.entrepreneur.facebook_url}} name = "facebook_url"> <br>
+     <p>Instagram Profile: </p>
+     <input type="url" value = {{user.entrepreneur.instagram_url}} name = "instagram_url"> <br><br><br>
+
+     <label for="business_pics"><b> Upload maximum five memorable photos of your business </b> </label> <br>
+
+ 
+    {% if user.entrepreneur.business_pic1.url is not None %}
+     <img src="{{user.entrepreneur.business_pic1.url}}" width="350" height="350" alt="">
+     <input type="checkbox" id="del_business_pic1" name="del_business_pic1" value="Delete this image"> Delete this image <br><br>
+     {% else %}
+     <input type="file" name="business_pic1" id="id_business_pic1" accept="image/*"> <br>
+     {% endif %}
+
+     {% if user.entrepreneur.business_pic2.url is not None %}
+     <img src="{{user.entrepreneur.business_pic2.url}}" width="350" height="350" alt="">
+     <input type="checkbox" id="del_business_pic2" name="del_business_pic2" value="Delete this image"> Delete this image<br><br>
+     {% else %}
+     <input type="file" name="business_pic2" id="id_business_pic2" accept="image/*"> <br>
+     {% endif %}
+
+     {% if user.entrepreneur.business_pic3.url is not None %}
+     <img src="{{user.entrepreneur.business_pic3.url}}" width="350" height="350" alt="">
+     <input type="checkbox" id="del_business_pic3" name="del_business_pic3" value="Delete this image"> Delete this image<br><br>
+     {% else %}
+     <input type="file" name="business_pic3" id="id_business_pic3" accept="image/*"> <br>
+     {% endif %}
+
+     {% if user.entrepreneur.business_pic4.url is not None %}
+     <img src="{{user.entrepreneur.business_pic4.url}}" width="350" height="350" alt="">
+     <input type="checkbox" id="del_business_pic4" name="del_business_pic4" value="Delete this image"> Delete this image <br><br>
+     {% else %}
+     <input type="file" name="business_pic4" id="id_business_pic4" accept="image/*"> <br>
+     {% endif %}
+
+     {% if user.entrepreneur.business_pic5.url is not None %}
+     <img src="{{user.entrepreneur.business_pic5.url}}" width="350" height="350" alt="">
+     <input type="checkbox" id="del_business_pic5" name="del_business_pic5" value="Delete this image"> Delete this image<br><br>
+     {% else %}
+     <input type="file" name="business_pic5" id="id_business_pic5" accept="image/*"> <br>
+     {% endif %}
+
+    {% else %}
+
+    <label for="intro"><b>Enter a brief into about yourself</b></label>
+    <input type="text" placeholder="Maximum 300 characters" name="intro" required>
+
+    <label for="industry"><b>Which industry best describes your work? </b></label>
+    <input type="text" placeholder="Example: Edutech, Digital Marketing, etc. " name="industry" required>
+
+    <label for="city"><b>Enter the name of your town or city: </b></label>
+    <input type="text" placeholder="Enter the name of your town or city" autocomplete="off" name="city" required>
+
+    <label for="state"><b>Enter the name of your state: </b></label>
+    <input type="text" placeholder="Enter the name of your town or state" autocomplete="off" name="state" required>
+
+    <label for="country"><b>Enter the name of your country: </b></label>
+    <input type="text" placeholder="Enter the name of your town or country" autocomplete="off" name="country" required>
+    
+     <label for="about"><b>Write your detailed bio</b></label>
+     <textarea rows = "20" cols = "100" name = "about"> Write here </textarea>
+    
+     <label for="id_photo"> <b> Upload a Profile Photo </b> </label>
+     <input type="file" name="photo" id="id_photo" accept="image/*"> <br><br>
+
+     <label for="external_urls"> <b> Enter any links to your website or social media profiles:</b> </label> <br>
+     <p>Linkedin Profile: </p>
+     <input type="url" value = "http://www.linkedin.com" name = "linkedin_url"> <br>
+     <p>Facebook Profile: </p>
+     <input type="url" value = "http://www.facebook.com" name = "facebook_url"> <br>
+     <p>Instagram Profile: </p>
+     <input type="url" value = "http://www.instagram.com" name = "instagram_url"> <br><br><br>
+
+     <label for="business_pics"><b> Upload maximum five memorable photos of your business </b> </label> <br>
+     <input type="file" name="business_pic1" id="id_business_pic1" accept="image/*"> <br>
+     <input type="file" name="business_pic2" id="id_business_pic2" accept="image/*"> <br>
+     <input type="file" name="business_pic3" id="id_business_pic3" accept="image/*"> <br>
+     <input type="file" name="business_pic4" id="id_business_pic4" accept="image/*"> <br>
+     <input type="file" name="business_pic5" id="id_business_pic5" accept="image/*"> <br>
+      {% endif %} 
+
+    <div class="clearfix">
+      <button type="button" onclick="location.href='{% url 'home' %}'" class="cancelbtn"> Cancel</button>
+      <button type="submit" class="signupbtn">Update</button>
+    </div>
+  </div>
+</form> 
+ {% endblock %}
+</html>

@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/styles_register.css' %}">
+</head>
+<body bgcolor = "lightgreen">
+{% block content %}
+ <form action="search" method='post' style="border:1px solid #ccc">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Search Entrepreneurs</h1>
+    <p>Please enter your keywords to search.</p>
+    <label for="keyword"><b>Search Terms</b></label>
+    <input type="text" placeholder="Keyword or Keyphrase" name="keyword" required>
+    <div class="clearfix">
+      <button type="button" onclick="location.href='{% url 'home' %}'" class="cancelbtn"> Cancel</button>
+      <button type="submit" class="signupbtn">Search</button>
+    </div>
+   {% if result_available == 0 %}
+   	<h3> No Search Results Found </h3>
+   {% elif result_available > 0 %}
+       <h3> Search Results </h3>
+   {% for ent in results %}
+   <div class="result">
+     Name:  <a href = "/profile?id={{ent.user.username}}">{{ent.user.first_name}} {{ent.user.last_name}}</a><br>
+     Industry: {{ent.industry}}<br>
+     About: {{ent.intro}}<br>
+     Location: {{ent.city}}, {{ent.state}}, {{ent.country}}<br>
+   </div> 
+   <br><br>
+  {% endfor %}
+  {% endif %}
+
+  </div>
+</form> 
+
+ {% endblock %}
+</html>
