@@ -8,6 +8,3 @@ Entrepreneurship is all about connections. When you are in a business, it is alw
 
 Entrepreneurs' Connect is created using Django Framework. The database used is MySQL. The entire project is OpenSource.
 
-This project is now hosted at:
-
-http://entconnect.pythonanywhere.com/
